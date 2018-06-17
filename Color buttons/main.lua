@@ -65,57 +65,15 @@ function sleep(sleepTime)
 end
 
 
-local oneIsFilled = 1
-local twoIsFilled = 1
-local threeIsFilled = 1
-local fourIsFilled = 1
-local fiveIsFilled = 1
-local sixIsFilled = 1
-local sevenIsFilled = 1
-local eightIsFilled = 1
-local nineIsFilled = 1
-
-
-local squaresFilled = (oneIsFilled + twoIsFilled + threeIsFilled + fourIsFilled + fiveIsFilled + sixIsFilled + sevenIsFilled + eightIsFilled + nineIsFilled)
-
-for squaresFilled = 9,9,0 do
-
-	local randomNum = math.random(1,9)
-	
-	if randomNum == 1 then
-		oneIsFilled = 0
-		colorLTB()
-		
-	elseif randomNum == 2 then
-		twoIsFilled = 0
-		colorMTB()
-		
-	elseif randomNum == 3 then
-		threeIsFilled = 0
-		colorRTB()
-		
-	elseif randomNum == 4 then
-		fourIsFilled = 0
-		colorLMB()
-	elseif randomNum == 5 then
-		fiveIsFilled = 0
-		colorMMB()
-	elseif randomNum == 6 then
-		sixIsFilled = 0
-		colorRMB()
-	elseif randomNum == 7 then
-		sevenIsFilled = 0
-		colorLBB()
-	elseif randomNum == 8 then
-		eightIsFilled = 0
-		colorMBB()
-	elseif randomNum == 9 then
-		nineIsFilled = 0
-		colorRBB()
-	end
-	
-	sleep()
-end
+local oneIsFilled = 0
+local twoIsFilled = 0
+local threeIsFilled = 0
+local fourIsFilled = 0
+local fiveIsFilled = 0
+local sixIsFilled = 0
+local sevenIsFilled = 0
+local eightIsFilled = 0
+local nineIsFilled = 0
 
 
 local function fillLTB()
@@ -180,6 +138,64 @@ rightMiddleBox:addEventListener("touch", fillRMB)
 
 rightBottomBox:addEventListener("touch", fillRBB)
 
+local squaresFilled = (oneIsFilled + twoIsFilled + threeIsFilled + fourIsFilled + fiveIsFilled + sixIsFilled + sevenIsFilled + eightIsFilled + nineIsFilled)
+
+local function fillSquaresOnDelay()
+	local randomNum = math.random(1,9)
+	
+	if randomNum == 1 then
+		oneIsFilled = 0
+		colorLTB()
+		
+	elseif randomNum == 2 then
+		twoIsFilled = 0
+		colorMTB()
+		
+	elseif randomNum == 3 then
+		threeIsFilled = 0
+		colorRTB()
+		
+	elseif randomNum == 4 then
+		fourIsFilled = 0
+		colorLMB()
+
+	elseif randomNum == 5 then
+		fiveIsFilled = 0
+		colorMMB()
+
+	elseif randomNum == 6 then
+		sixIsFilled = 0
+		colorRMB()
+
+	elseif randomNum == 7 then
+		sevenIsFilled = 0
+		colorLBB()
+
+	elseif randomNum == 8 then
+		eightIsFilled = 0
+		colorMBB()
+
+	elseif randomNum == 9 then
+		nineIsFilled = 0
+		colorRBB()
+	end
+
+	
+	startTimer()
+end
+
+local clockTimer
+
+function startTimer()
+	if(clockTimer~=nil) then
+		timer.cancel(clockTimer)
+		clockTimer = nil
+	end
+	
+	clockTimer = timer.performWithDelay( 1000,function() Runtime:addEventListener("enterFrame",fillSquaresOnDelay) end,020)
+
+end
 
 
+fillSquaresOnDelay()
 
